@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Infinite Scrolling Background</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .banner {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow:auto;
+            height:4096px;
+            width: 720px;
+            background-color: rgb(0);
+            border: 10px solid rgb(0, 81, 255);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            --mask: conic-gradient(from 20deg at left,#00aeff,#00aeff 1deg 139deg,#00aeff 140deg) left/51% 21.98px repeat-y, conic-gradient(from -160deg at right,#00aeff,#00aeff,#00aeff 140deg) right/51% 21.98px repeat-y;
+            -webkit-mask: var(--mask);
+            mask: var(--mask);
+        }
+
+        .top {
+            position: absolute;
+            width: 720px;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 50px), 50% 100%, 0 calc(100% - 50px));
+            z-index: 2;
+        }
+
+        .bottom {
+            top: 410px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            
+            justify-content: center;
+            clip-path: polygon(0 0, 50% 50px, 100% 0, 100% 100%, 0 100%);
+            z-index: 3;
+            height:150%;
+            background-image: url('https://wallpapercave.com/wp/BMrmUGk.jpg');
+            background-size: auto;
+            background-repeat: repeat-x, repeat-y;
+        }
+
+
+
+        .container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 50%;
+            animation: scrollBackground 10s linear infinite;
+            background-repeat: repeat-x;
+
+        }
+        .shimmer::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmerAnimation 2s infinite;
+        }
+
+        .image-container {
+            align-content: center;
+            display: flex;
+            width: 100%;
+        }
+
+            .image-container img {
+                width: 100%;
+                height: 100%;
+            }
+
+        /* Apply object-fit: cover to the video elements */
+        .top video,
+        .bottom img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+        @keyframes scrollBackground {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes shimmerAnimation {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="bottom shimmer">
+            <img src="https://wallpapercave.com/wp/BMrmUGk.jpg" />
+        </div>
+        <div class="top shimmer">
+            <video src="https://i.imgur.com/MJ76pnR.mp4" autoplay loop muted playsinline></video>
+        </div>
+    </div>
+    <div class="container shimmer">
+        <div class="image-container">
+            <img src="https://i.imgur.com/nAy5bVl.jpg" />
+        </div>
+    </div>
+    
+</body>
+</html>
